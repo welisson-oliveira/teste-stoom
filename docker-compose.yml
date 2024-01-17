@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-stoom-store
+    ports:
+      - "5432:5432"
+    networks:
+      - stoom-store-network
+    environment:
+      POSTGRES_USER: stoom-store
+      POSTGRES_PASSWORD: stoom-store
+      POSTGRES_DB: store
+
+networks:
+  stoom-store-network:
+    name: stoom-store-network
+    driver: bridge
