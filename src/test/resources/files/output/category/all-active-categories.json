@@ -1,0 +1,47 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "TENIS",
+      "skuCode": "TEN",
+      "active": true
+    },
+    {
+      "id": 51,
+      "name": "MEIA",
+      "skuCode": "MEI",
+      "active": true
+    },
+    {
+      "id": 101,
+      "name": "CAMISA",
+      "skuCode": "CAM",
+      "active": true
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalPages": 1,
+  "totalElements": 3,
+  "last": true,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "numberOfElements": 3,
+  "first": true,
+  "empty": false
+}

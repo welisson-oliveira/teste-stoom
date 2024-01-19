@@ -1,0 +1,53 @@
+{
+  "content": [
+    {
+      "id": 51,
+      "sku": "NIK-0122",
+      "name": "CAMISA",
+      "category": "CAMISA",
+      "brand": "NIKE",
+      "price": 1000.00,
+      "description": "CAMISA-NIKE",
+      "stockQuantity": 10,
+      "active": true,
+      "images": []
+    },
+    {
+      "id": 101,
+      "sku": "NIK-0123",
+      "name": "CAMISA",
+      "category": "CAMISA",
+      "brand": "NIKE",
+      "price": 1000.00,
+      "description": "CAMISA-NIKE",
+      "stockQuantity": 10,
+      "active": true,
+      "images": []
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalPages": 1,
+  "totalElements": 2,
+  "last": true,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "numberOfElements": 2,
+  "first": true,
+  "empty": false
+}

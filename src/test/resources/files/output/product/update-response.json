@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "sku": "TEN-NIK",
+  "name": "ATUALIZADO",
+  "category": "TENIS",
+  "brand": "NIKE",
+  "price": 90.00,
+  "description": "TENIS NIKE",
+  "stockQuantity": 20,
+  "active": true,
+  "images": []
+}

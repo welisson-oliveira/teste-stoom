@@ -1,0 +1,62 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "sku": "TEN-NIK",
+      "name": "TENIS",
+      "category": "TENIS",
+      "brand": "NIKE",
+      "price": 1000.00,
+      "description": "TENIS-NIKE",
+      "stockQuantity": 10,
+      "active": true
+    },
+    {
+      "id": 51,
+      "sku": "TEN-NIK",
+      "name": "TENIS",
+      "category": "TENIS",
+      "brand": "NIKE",
+      "price": 1000.00,
+      "description": "TENIS-NIKE",
+      "stockQuantity": 10,
+      "active": true
+    },
+    {
+      "id": 101,
+      "sku": "TEN-NIK",
+      "name": "TENIS",
+      "category": "TENIS",
+      "brand": "NIKE",
+      "price": 1000.00,
+      "description": "TENIS-NIKE",
+      "stockQuantity": 10,
+      "active": true
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": true,
+      "unsorted": false,
+      "empty": false
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 3,
+    "unpaged": false,
+    "paged": true
+  },
+  "totalPages": 2,
+  "totalElements": 5,
+  "last": false,
+  "size": 3,
+  "number": 0,
+  "sort": {
+    "sorted": true,
+    "unsorted": false,
+    "empty": false
+  },
+  "numberOfElements": 3,
+  "first": true,
+  "empty": false
+}
