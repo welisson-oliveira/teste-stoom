@@ -91,7 +91,9 @@ public class ProductBO implements IProductBO {
     }
 
 
-    private Product getProduct(final Long id) {
+    @Override
+    public Product getProduct(final Long id) {
         return this.productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado!"));
     }
+
 }

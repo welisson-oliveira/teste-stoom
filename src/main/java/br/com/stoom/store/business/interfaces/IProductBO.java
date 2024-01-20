@@ -27,4 +27,7 @@ public interface IProductBO {
     List<Image> getImages(Long id);
 
     void deleteImage(Long id, Long image);
+
+    Product getProduct(Long id);
+
 }

@@ -33,6 +33,11 @@ public class ProductController {
         return this.productBO.findAll(pageable).map(this.pageConverter);
     }
 
+    @GetMapping("/{id}")
+    public ProductDTO findById(@PathVariable final Long id) {
+        return this.productParser.toDTO(this.productBO.getProduct(id));
+    }
+
     @GetMapping("/brands/name/{name}")
     public Page<ProductDTO> findAllByBrand(@PathVariable final String name, final Pageable pageable) {
         return this.productBO.findAllByBrand(name, pageable).map(this.pageConverter);
