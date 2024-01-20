@@ -1,11 +1,11 @@
 package br.com.stoom.store.controller.parsers;
 
+import br.com.stoom.store.business.interfaces.IBrandBO;
+import br.com.stoom.store.business.interfaces.ICategoryBO;
 import br.com.stoom.store.controller.dto.ProductDTO;
 import br.com.stoom.store.model.Brand;
 import br.com.stoom.store.model.Category;
 import br.com.stoom.store.model.Product;
-import br.com.stoom.store.repository.BrandRepository;
-import br.com.stoom.store.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ProductParser extends Parser<Product, ProductDTO> {
 
-    private final CategoryRepository categoryRepository;
-    private final BrandRepository brandRepository;
+    private final ICategoryBO categoryBO;
+    private final IBrandBO brandBO;
     private final ImageParser imageParser;
 
     @Override
     public Product parse(final ProductDTO product) {
-        final Category category = this.categoryRepository.getByName(product.getCategory());
-        final Brand brand = this.brandRepository.getByName(product.getBrand());
+        final Category category = this.categoryBO.getByName(product.getCategory());
+        final Brand brand = this.brandBO.getByName(product.getBrand());
 
         return new Product(product.getName(), category, brand, product.getPrice(), product.getDescription(), product.getStockQuantity());
     }

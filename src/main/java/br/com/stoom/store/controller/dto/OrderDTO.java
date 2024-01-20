@@ -20,4 +20,5 @@ public class OrderDTO {
     private LocalDateTime orderDate;
     private BigDecimal totalAmount;
     private OrderStatus status;
+    private OrderStatus previousStatus;
 }

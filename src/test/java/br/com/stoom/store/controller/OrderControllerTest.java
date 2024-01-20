@@ -52,6 +52,7 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(patch("/orders/1/status/PROCESSING")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status", CoreMatchers.equalTo("PROCESSING")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("PENDING")))
                 .andExpect(status().isOk());
     }
 
@@ -61,6 +62,7 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(patch("/orders/1/status/CONFIRMED")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status", CoreMatchers.equalTo("CONFIRMED")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("PROCESSING")))
                 .andExpect(status().isOk());
     }
 
@@ -70,6 +72,7 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(patch("/orders/1/status/SHIPPED")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status", CoreMatchers.equalTo("SHIPPED")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("CONFIRMED")))
                 .andExpect(status().isOk());
     }
 
@@ -79,6 +82,7 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(patch("/orders/1/status/DELIVERED")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status", CoreMatchers.equalTo("DELIVERED")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("SHIPPED")))
                 .andExpect(status().isOk());
     }
 
@@ -88,6 +92,7 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(patch("/orders/1/status/RETURNED")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status", CoreMatchers.equalTo("RETURNED")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("DELIVERED")))
                 .andExpect(status().isOk());
     }
 
@@ -96,7 +101,7 @@ class OrderControllerTest extends AbstractTestConfig {
     void shouldNotChangeStatusFromDeliveredToCanceled() throws Exception {
         this.mockMvc.perform(patch("/orders/1/status/CANCELLED")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"errorCode\":400,\"message\":[\"não pode mudar para o estado CANCELLED\"]}"))
+                .andExpect(content().json("{\"errorCode\":400,\"message\":\"não pode mudar para o estado de DELIVERED para CANCELLED\"}"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -127,6 +132,37 @@ class OrderControllerTest extends AbstractTestConfig {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.stockQuantity", CoreMatchers.equalTo(10)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Sql("classpath:db/order/pending-status.sql")
+    void shouldChangeStatusFromPendingToOnHoldAndBack() throws Exception {
+        this.mockMvc.perform(patch("/orders/1/status/ON_HOLD")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status", CoreMatchers.equalTo("ON_HOLD")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("PENDING")))
+                .andExpect(status().isOk());
+
+        this.mockMvc.perform(patch("/orders/1/status/PENDING")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status", CoreMatchers.equalTo("PENDING")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("ON_HOLD")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Sql("classpath:db/order/pending-status.sql")
+    void shouldNotChangeStatusFromOnHoldToProcessing() throws Exception {
+        this.mockMvc.perform(patch("/orders/1/status/ON_HOLD")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status", CoreMatchers.equalTo("ON_HOLD")))
+                .andExpect(jsonPath("$.previousStatus", CoreMatchers.equalTo("PENDING")))
+                .andExpect(status().isOk());
+
+        this.mockMvc.perform(patch("/orders/1/status/PROCESSING")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("{\"errorCode\":400,\"message\":\"não pode mudar para o estado de ON_HOLD para PROCESSING antes volte para PENDING\"}"))
+                .andExpect(status().isBadRequest());
     }
 
 }

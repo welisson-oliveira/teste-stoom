@@ -5,13 +5,13 @@ import br.com.stoom.store.model.OrderStatus;
 
 public class OrderStatusReturned implements OrderChangeStatusProcess {
     @Override
-    public boolean canProcess(final OrderStatus status) {
-        return OrderStatus.RETURNED.equals(status);
+    public boolean canProcess(final OrderStatuses orderStatuses) {
+        return OrderStatus.RETURNED.equals(orderStatuses.getStatus());
     }
 
     @Override
     public void process(final OrderStatus status, final Order order, final OrderChangeStatusProcess next) {
-        if (this.canProcess(status)) {
+        if (this.canProcess(new OrderStatuses(status, order.getPreviousStatus()))) {
             order.stockEntry();
         }
     }

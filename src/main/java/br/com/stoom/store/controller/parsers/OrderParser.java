@@ -39,6 +39,7 @@ public class OrderParser extends Parser<Order, OrderDTO> {
                 }).collect(Collectors.toList()),
                 order.getOrderDate(),
                 order.getTotalAmount(),
-                order.getStatus());
+                order.getStatus(),
+                order.getPreviousStatus());
     }
 }

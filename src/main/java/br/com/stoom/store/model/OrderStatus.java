@@ -50,7 +50,7 @@ public enum OrderStatus {
     ON_HOLD {
         @Override
         public List<OrderStatus> nextStatus() {
-            return null;
+            return Arrays.asList(PENDING, PROCESSING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED, RETURNED);
         }
     };
 

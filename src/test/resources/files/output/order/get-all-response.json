@@ -24,7 +24,8 @@
       ],
       "orderDate": "2024-01-19T21:34:56",
       "totalAmount": 4000.00,
-      "status": "PENDING"
+      "status": "PENDING",
+      "previousStatus": "PENDING"
     }
   ],
   "pageable": {

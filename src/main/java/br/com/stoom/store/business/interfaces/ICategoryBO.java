@@ -13,4 +13,6 @@ public interface ICategoryBO {
 
     Category activated(Long id, Boolean flag);
 
+
+    Category getByName(String category);
 }

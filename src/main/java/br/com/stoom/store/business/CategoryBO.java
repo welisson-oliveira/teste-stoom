@@ -41,6 +41,11 @@ public class CategoryBO implements ICategoryBO {
         return this.categoryRepository.save(categoryDB);
     }
 
+    @Override
+    public Category getByName(final String category) {
+        return this.categoryRepository.getByName(category).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada!"));
+    }
+
     private Category getCategory(final Long id) {
         return this.categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada!"));
     }

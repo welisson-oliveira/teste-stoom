@@ -1,14 +1,12 @@
 package br.com.stoom.store.exceptions;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public class ErrorData {
     private final int errorCode;
-    private final String[] message;
+    private final String message;
 
-    public ErrorData(final int errorCode, final String... message) {
-        this.errorCode = errorCode;
-        this.message = message;
-    }
 }

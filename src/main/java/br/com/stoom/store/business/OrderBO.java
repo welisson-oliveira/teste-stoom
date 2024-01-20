@@ -40,7 +40,7 @@ public class OrderBO implements IOrderBO {
     public Order changeStatus(final Long id, final OrderStatus status) throws InvalidStatusException {
         final Order order = this.getOrder(id);
 
-        order.nextStatus(status);
+        order.changeStatus(status);
         this.orderChangeStatusProcess.process(status, order, new OrderStatusCanceled());
 
         return this.orderRepository.save(order);

@@ -39,6 +39,11 @@ public class BrandBO implements IBrandBO {
         return this.brandRepository.save(brandDB);
     }
 
+    @Override
+    public Brand getByName(final String brand) {
+        return this.brandRepository.getByName(brand).orElseThrow(() -> new ResourceNotFoundException("Marca não encontrada!"));
+    }
+
     private Brand getBrand(final Long id) {
         return this.brandRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Marca não encontrada!"));
     }

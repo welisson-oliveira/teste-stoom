@@ -12,4 +12,6 @@ public interface IBrandBO {
     Brand update(Long id, Brand brand);
 
     Brand activated(Long id, Boolean flag);
+
+    Brand getByName(String brand);
 }
