@@ -9,7 +9,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class BrandControllerTest extends AbstractTestConfig {
+class BrandControllerTest extends AbstractTestConfig {
 
     @Test
     @Sql("classpath:db/brand/init-values.sql")

@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ProductControllerTest extends AbstractTestConfig {
+class ProductControllerTest extends AbstractTestConfig {
 
     @Test
     @Sql("classpath:db/product/init-values.sql")

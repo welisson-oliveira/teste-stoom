@@ -2,6 +2,7 @@ package br.com.stoom.store.controller.parsers;
 
 import br.com.stoom.store.business.ImageManager;
 import br.com.stoom.store.controller.dto.ImageDTO;
+import br.com.stoom.store.exceptions.FileException;
 import br.com.stoom.store.model.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class ImageParser {
             try {
                 return this.toDTO(image);
             } catch (final IOException e) {
-                throw new RuntimeException(e);
+                throw new FileException(e.getMessage());
             }
         }).collect(Collectors.toList());
     }

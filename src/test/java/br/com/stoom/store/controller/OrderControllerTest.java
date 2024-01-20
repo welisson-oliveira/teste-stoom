@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class OrderControllerTest extends AbstractTestConfig {
+class OrderControllerTest extends AbstractTestConfig {
 
     @Test
     @Sql("classpath:db/order/init-values.sql")

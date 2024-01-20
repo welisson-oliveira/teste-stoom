@@ -19,7 +19,6 @@ public class ProductParser extends Parser<Product, ProductDTO> {
 
     @Override
     public Product parse(final ProductDTO product) {
-        // TODO adicionar ao service
         final Category category = this.categoryRepository.getByName(product.getCategory());
         final Brand brand = this.brandRepository.getByName(product.getBrand());
 

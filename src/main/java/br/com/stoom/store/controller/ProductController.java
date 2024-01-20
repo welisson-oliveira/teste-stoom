@@ -6,6 +6,7 @@ import br.com.stoom.store.controller.dto.ProductDTO;
 import br.com.stoom.store.controller.pageconverter.PageConverter;
 import br.com.stoom.store.controller.parsers.ImageParser;
 import br.com.stoom.store.controller.parsers.Parser;
+import br.com.stoom.store.exceptions.FileException;
 import br.com.stoom.store.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -76,7 +77,7 @@ public class ProductController {
             try {
                 return this.imageParser.toDTO(image);
             } catch (final IOException e) {
-                throw new RuntimeException(e);
+                throw new FileException(e.getMessage());
             }
         }).collect(Collectors.toList());
 

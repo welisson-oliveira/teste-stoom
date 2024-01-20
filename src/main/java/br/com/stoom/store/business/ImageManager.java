@@ -1,5 +1,6 @@
 package br.com.stoom.store.business;
 
+import br.com.stoom.store.exceptions.FileException;
 import br.com.stoom.store.model.Image;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,12 +21,12 @@ public class ImageManager {
             bytes = file.getBytes();
 
             final String imageName = UUID.randomUUID() + file.getOriginalFilename();
-            final Path pathDir = Paths.get(directory + "/" + imageName);
+            final Path pathDir = Paths.get(directory + File.separator + imageName);
             Files.write(pathDir, bytes);
             return imageName;
 
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            throw new FileException(e.getMessage());
         }
     }
 
@@ -39,7 +40,7 @@ public class ImageManager {
             final Path pathDir = Paths.get(image.getAbsolutePath());
             Files.delete(pathDir);
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            throw new FileException(e.getMessage());
         }
     }
 
