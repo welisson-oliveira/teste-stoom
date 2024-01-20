@@ -1,0 +1,25 @@
+{
+  "id": 2,
+  "orderItems": [
+    {
+      "id": 2,
+      "product": {
+        "id": 1,
+        "sku": "NIK-0123",
+        "name": "TENIS",
+        "category": "TENIS",
+        "brand": "NIKE",
+        "price": 1000.00,
+        "description": "TENIS-NIKE",
+        "stockQuantity": 8,
+        "active": true,
+        "images": []
+      },
+      "quantity": 2,
+      "price": 1000.00,
+      "productId": 1
+    }
+  ],
+  "totalAmount": 2000.00,
+  "status": "PENDING"
+}
