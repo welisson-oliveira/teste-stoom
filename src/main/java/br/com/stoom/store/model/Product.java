@@ -1,6 +1,7 @@
 package br.com.stoom.store.model;
 
 import br.com.stoom.store.exceptions.ResourceNotFoundException;
+import br.com.stoom.store.exceptions.StockLimitException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -95,5 +96,16 @@ public class Product {
 
     public void removeImage(final Long image) {
         this.images.remove(this.getImage(image));
+    }
+
+    public void writeOff(final Long qtd) {
+        if (this.stockQuantity - qtd < 0) {
+            throw new StockLimitException("O estoque não tem produtos suficientes");
+        }
+        this.stockQuantity -= qtd;
+    }
+
+    public void stockEntry(final Long qtd) {
+        this.stockQuantity += qtd;
     }
 }
