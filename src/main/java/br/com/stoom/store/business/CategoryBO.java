@@ -21,6 +21,11 @@ public class CategoryBO implements ICategoryBO {
     }
 
     @Override
+    public Page<Category> findAllInactivated(final Pageable pageable) {
+        return this.categoryRepository.findAllByActiveFalse(pageable);
+    }
+
+    @Override
     public Category create(final Category category) {
         return this.categoryRepository.save(category);
     }

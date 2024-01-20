@@ -15,4 +15,6 @@ public interface ICategoryBO {
 
 
     Category getByName(String category);
+
+    Page<Category> findAllInactivated(Pageable pageable);
 }

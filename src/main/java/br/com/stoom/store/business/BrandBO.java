@@ -44,6 +44,11 @@ public class BrandBO implements IBrandBO {
         return this.brandRepository.getByName(brand).orElseThrow(() -> new ResourceNotFoundException("Marca não encontrada!"));
     }
 
+    @Override
+    public Page<Brand> findAllInactivated(final Pageable pageable) {
+        return this.brandRepository.findAllByActiveFalse(pageable);
+    }
+
     private Brand getBrand(final Long id) {
         return this.brandRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Marca não encontrada!"));
     }

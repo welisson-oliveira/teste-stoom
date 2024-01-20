@@ -5,6 +5,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -17,6 +18,16 @@ class BrandControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(get("/brands")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(this.readFileAsString("src/test/resources/files/output/brand/all-active-brands.json")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Sql("classpath:db/brand/init-values.sql")
+    void shouldGetAllInactiveBrands() throws Exception {
+        this.mockMvc.perform(get("/brands/inactivated")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$.content.size()", CoreMatchers.equalTo(1)))
                 .andExpect(status().isOk());
     }
 

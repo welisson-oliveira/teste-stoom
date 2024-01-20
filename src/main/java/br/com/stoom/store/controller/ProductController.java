@@ -34,6 +34,11 @@ public class ProductController {
         return this.productBO.findAll(pageable).map(this.pageConverter);
     }
 
+    @GetMapping("/inactivated")
+    public Page<ProductDTO> findAllInactivated(final Pageable pageable) {
+        return this.productBO.findAllInactivated(pageable).map(this.pageConverter);
+    }
+
     @GetMapping("/{id}")
     public ProductDTO findById(@PathVariable final Long id) {
         return this.productParser.toDTO(this.productBO.getProduct(id));

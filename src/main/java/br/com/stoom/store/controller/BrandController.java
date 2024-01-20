@@ -25,6 +25,11 @@ public class BrandController {
         return this.brandBO.findAll(pageable).map(this.pageConverter);
     }
 
+    @GetMapping("/inactivated")
+    public Page<BrandDTO> findAllInactivated(final Pageable pageable) {
+        return this.brandBO.findAllInactivated(pageable).map(this.pageConverter);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BrandDTO create(@RequestBody final BrandDTO brandDTO) {

@@ -25,6 +25,11 @@ public class CategoryController {
         return this.categoryBO.findAll(pageable).map(this.pageConverter);
     }
 
+    @GetMapping("/inactivated")
+    public Page<CategoryDTO> findAllInactivated(final Pageable pageable) {
+        return this.categoryBO.findAllInactivated(pageable).map(this.pageConverter);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDTO create(@RequestBody final CategoryDTO categoryDTO) {

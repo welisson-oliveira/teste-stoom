@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class OrderControllerTest extends AbstractTestConfig {
@@ -17,7 +16,6 @@ class OrderControllerTest extends AbstractTestConfig {
     void shouldGetAllOrders() throws Exception {
         this.mockMvc.perform(get("/orders")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(content().json(this.readFileAsString("src/test/resources/files/output/order/get-all-response.json"), true))
                 .andExpect(status().isOk());
     }
@@ -27,7 +25,6 @@ class OrderControllerTest extends AbstractTestConfig {
     void shouldGetOrderById() throws Exception {
         this.mockMvc.perform(get("/orders/1")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(content().json(this.readFileAsString("src/test/resources/files/output/order/get-by-id.json"), true))
                 .andExpect(status().isOk());
     }
@@ -40,7 +37,6 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(post("/orders")
                         .content(order)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().json(this.readFileAsString("src/test/resources/files/output/order/insert-response.json")));
 
@@ -114,7 +110,6 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(post("/orders")
                         .content(order)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().json(this.readFileAsString("src/test/resources/files/output/order/insert-response.json")));
 

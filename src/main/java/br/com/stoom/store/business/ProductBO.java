@@ -32,6 +32,11 @@ public class ProductBO implements IProductBO {
     }
 
     @Override
+    public Page<Product> findAllInactivated(final Pageable pageable) {
+        return this.productRepository.findAllByActiveFalse(pageable);
+    }
+
+    @Override
     public Product create(final Product product) {
         return this.productRepository.save(product);
     }

@@ -30,4 +30,5 @@ public interface IProductBO {
 
     Product getProduct(Long id);
 
+    Page<Product> findAllInactivated(Pageable pageable);
 }

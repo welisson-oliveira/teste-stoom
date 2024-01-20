@@ -14,4 +14,6 @@ public interface IBrandBO {
     Brand activated(Long id, Boolean flag);
 
     Brand getByName(String brand);
+
+    Page<Brand> findAllInactivated(Pageable pageable);
 }
