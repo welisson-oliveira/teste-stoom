@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class OrderControllerTest extends AbstractTestConfig {
@@ -39,6 +40,21 @@ class OrderControllerTest extends AbstractTestConfig {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().json(this.readFileAsString("src/test/resources/files/output/order/insert-response.json")));
+
+    }
+
+    @Test
+    @Sql("classpath:db/order/init-values.sql")
+    void shouldNotCreateANewOrder() throws Exception {
+        final String order = this.readFileAsString("src/test/resources/files/input/order/stock-limit-exceeded.json");
+
+        this.mockMvc.perform(post("/orders")
+                        .content(order)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errorCode", CoreMatchers.equalTo(400)))
+                .andExpect(jsonPath("$.message", CoreMatchers.equalTo("O estoque não tem produtos suficientes")));
 
     }
 
@@ -97,7 +113,9 @@ class OrderControllerTest extends AbstractTestConfig {
     void shouldNotChangeStatusFromDeliveredToCanceled() throws Exception {
         this.mockMvc.perform(patch("/orders/1/status/CANCELLED")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"errorCode\":400,\"message\":\"não pode mudar para o estado de DELIVERED para CANCELLED\"}"))
+
+                .andExpect(jsonPath("$.errorCode", CoreMatchers.equalTo(400)))
+                .andExpect(jsonPath("$.message", CoreMatchers.equalTo("não pode mudar para o estado de DELIVERED para CANCELLED")))
                 .andExpect(status().isBadRequest());
     }
 
@@ -156,7 +174,8 @@ class OrderControllerTest extends AbstractTestConfig {
 
         this.mockMvc.perform(patch("/orders/1/status/PROCESSING")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"errorCode\":400,\"message\":\"não pode mudar para o estado de ON_HOLD para PROCESSING antes volte para PENDING\"}"))
+                .andExpect(jsonPath("$.errorCode", CoreMatchers.equalTo(400)))
+                .andExpect(jsonPath("$.message", CoreMatchers.equalTo("não pode mudar para o estado de ON_HOLD para PROCESSING antes volte para PENDING")))
                 .andExpect(status().isBadRequest());
     }
 

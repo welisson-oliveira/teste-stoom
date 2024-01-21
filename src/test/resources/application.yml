@@ -8,7 +8,6 @@ spring:
       path: /h2-console
   datasource:
     url: jdbc:h2:mem:test
-
   jpa:
     properties:
       hibernate:
@@ -20,3 +19,4 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 file:
   dir: src/test/resources/images/uploaded
+  allowed-file-extensions: jpg, jpeg, png

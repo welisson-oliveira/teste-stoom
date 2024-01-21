@@ -8,6 +8,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartException;
 
 @ControllerAdvice
 @Slf4j
@@ -19,11 +20,18 @@ public class DefaultExceptionHandler {
         return new ResponseEntity<>(new ErrorData(HttpStatus.BAD_REQUEST.value(), exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MultipartException.class)
+    private ResponseEntity<ErrorData> fileErrors(final Throwable exception) {
+        log.error(exception.getMessage());
+        return new ResponseEntity<>(new ErrorData(HttpStatus.BAD_REQUEST.value(), "Tamanho maximo do upload excedido"), HttpStatus.BAD_REQUEST);
+    }
+
+
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<ErrorData> handleException(final Throwable throwable) {
-        log.error(throwable.getMessage());
-        final Class<? extends Throwable> clazz = throwable.getClass();
-        return new ResponseEntity<>(new ErrorData(this.getHttpStatus(clazz).value(), throwable.getMessage()), this.getHttpStatus(clazz));
+    public ResponseEntity<ErrorData> handleException(final Throwable exception) {
+        log.error(exception.getMessage());
+        final Class<? extends Throwable> clazz = exception.getClass();
+        return new ResponseEntity<>(new ErrorData(this.getHttpStatus(clazz).value(), exception.getMessage()), this.getHttpStatus(clazz));
     }
 
     private HttpStatus getHttpStatus(final Class<? extends Throwable> clazz) {

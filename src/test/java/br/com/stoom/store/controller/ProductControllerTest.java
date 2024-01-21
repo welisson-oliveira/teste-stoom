@@ -118,9 +118,10 @@ class ProductControllerTest extends AbstractTestConfig {
 
     @Test
     @Sql("classpath:db/product/init-values.sql")
-    void productNotFound() throws Exception {
-        this.mockMvc.perform(patch("/products/10/inactivated/true")
+    void shouldNotReturnProductNotFound() throws Exception {
+        this.mockMvc.perform(get("/products/10")
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("{\"errorCode\":404,\"message\":\"Produto não encontrado!\"}"))
                 .andExpect(status().isNotFound());
     }
 
@@ -165,9 +166,7 @@ class ProductControllerTest extends AbstractTestConfig {
     void shouldDeleteImage() throws Exception {
         final ClassPathResource spring = new ClassPathResource("/images/spring.png");
 
-
         final MockMultipartFile file = new MockMultipartFile("files", spring.getFilename(), MediaType.IMAGE_PNG_VALUE, Files.readAllBytes(spring.getFile().toPath()));
-
 
         this.mockMvc.perform(multipart("/products/1/images")
                         .file(file)
@@ -184,6 +183,22 @@ class ProductControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(get("/products/1/images"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
+    }
+
+    @Test
+    @Sql("classpath:db/product/init-values.sql")
+    void shouldNotUploadInvalidFile() throws Exception {
+        final ClassPathResource spring = new ClassPathResource("/images/teste.xlsx");
+
+        final MockMultipartFile file = new MockMultipartFile("files", spring.getFilename(), MediaType.MULTIPART_FORM_DATA.getType(), Files.readAllBytes(spring.getFile().toPath()));
+
+        this.mockMvc.perform(multipart("/products/1/images")
+                        .file(file)
+                        .contentType(MediaType.MULTIPART_FORM_DATA))
+                .andExpect(jsonPath("$.errorCode", CoreMatchers.equalTo(400)))
+                .andExpect(jsonPath("$.message", CoreMatchers.equalTo("Tipo de arquivo invalido")))
+                .andExpect(status().isBadRequest());
+
     }
 
 }

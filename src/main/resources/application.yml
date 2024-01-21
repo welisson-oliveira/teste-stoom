@@ -8,15 +8,19 @@ spring:
     url: jdbc:postgresql://localhost:5432/store
     username: stoom-store
     password: stoom-store
-
   jpa:
     hibernate:
       ddl-auto: update
       temp:
         use_jdbc_metadata_defaults: false
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 25MB
 file:
   dir: files
+  allowed-file-extensions: jpg, jpeg, png
 
 ---
 spring:
