@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class OrderControllerTest extends AbstractTestConfig {
@@ -51,7 +50,6 @@ class OrderControllerTest extends AbstractTestConfig {
         this.mockMvc.perform(post("/orders")
                         .content(order)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errorCode", CoreMatchers.equalTo(400)))
                 .andExpect(jsonPath("$.message", CoreMatchers.equalTo("O estoque não tem produtos suficientes")));

@@ -7,7 +7,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.nio.file.Files;
 
@@ -30,7 +29,6 @@ class ProductControllerTest extends AbstractTestConfig {
     void shouldGetAllInactiveProducts() throws Exception {
         this.mockMvc.perform(get("/products/inactivated")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(jsonPath("$.content.size()", CoreMatchers.equalTo(1)))
                 .andExpect(status().isOk());
     }
@@ -76,7 +74,6 @@ class ProductControllerTest extends AbstractTestConfig {
                         .content(product)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(content().json(this.readFileAsString("src/test/resources/files/output/product/insert-response.json"), true));
     }
 
