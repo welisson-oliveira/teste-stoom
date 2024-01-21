@@ -27,7 +27,7 @@ class ProductControllerTest extends AbstractTestConfig {
 
     @Test
     @Sql("classpath:db/product/init-values.sql")
-    void shouldGetAllInactiveBrands() throws Exception {
+    void shouldGetAllInactiveProducts() throws Exception {
         this.mockMvc.perform(get("/products/inactivated")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())

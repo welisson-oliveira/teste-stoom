@@ -22,7 +22,7 @@ public class ProductParser extends Parser<Product, ProductDTO> {
         final Category category = this.categoryBO.getByName(product.getCategory());
         final Brand brand = this.brandBO.getByName(product.getBrand());
 
-        return new Product(product.getName(), category, brand, product.getPrice(), product.getDescription(), product.getStockQuantity());
+        return new Product(this.validate(product.getName(), "Nome"), category, brand, product.getPrice(), this.validate(product.getDescription(), "Descrição"), product.getStockQuantity());
     }
 
     @Override

@@ -3,7 +3,7 @@
     {
       "id": 1,
       "sku": "TEN-NIK",
-      "name": "TENIS",
+      "name": "TENIS MOD 1",
       "category": "TENIS",
       "brand": "NIKE",
       "price": 1000.00,
@@ -14,7 +14,7 @@
     {
       "id": 51,
       "sku": "TEN-NIK",
-      "name": "TENIS",
+      "name": "TENIS MOD 2",
       "category": "TENIS",
       "brand": "NIKE",
       "price": 1000.00,
@@ -25,7 +25,7 @@
     {
       "id": 101,
       "sku": "TEN-NIK",
-      "name": "TENIS",
+      "name": "TENIS MOD 3",
       "category": "TENIS",
       "brand": "NIKE",
       "price": 1000.00,

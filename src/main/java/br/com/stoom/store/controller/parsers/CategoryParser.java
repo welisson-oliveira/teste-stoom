@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class CategoryParser extends Parser<Category, CategoryDTO> {
     @Override
     public Category parse(final CategoryDTO categoryDTO) {
-        return new Category(categoryDTO.getName(), categoryDTO.getSkuCode());
+        return new Category(this.validate(categoryDTO.getName(), "Nome"), this.validate(categoryDTO.getSkuCode(), "Código SKU"));
     }
 
     @Override

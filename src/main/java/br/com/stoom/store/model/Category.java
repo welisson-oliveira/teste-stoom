@@ -1,5 +1,6 @@
 package br.com.stoom.store.model;
 
+import br.com.stoom.store.exceptions.BadRequestException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -35,14 +37,21 @@ public class Category {
     private Boolean active;
 
     public Category(final String name, final String skuCode) {
-        this.name = name;
-        this.skuCode = skuCode;
+        this.name = this.validate(name, "Nome");
+        this.skuCode = this.validate(skuCode, "Código SKU");
         this.active = true;
     }
 
+    private String validate(final String txt, final String propertyName) {
+        if (Objects.isNull(txt) || txt.trim().isEmpty()) {
+            throw new BadRequestException("Informe o " + propertyName);
+        }
+        return txt.trim();
+    }
+
     public void update(final Category category) {
-        this.name = category.getName();
-        this.skuCode = category.getSkuCode();
+        this.name = this.validate(category.getName(), "Nome");
+        this.skuCode = this.validate(category.getSkuCode(), "Código SKU");
     }
 
     public void activated(final Boolean flag) {

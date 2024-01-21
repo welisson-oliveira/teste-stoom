@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class BrandParser extends Parser<Brand, BrandDTO> {
     @Override
     public Brand parse(final BrandDTO brandDTO) {
-        return new Brand(brandDTO.getName(), brandDTO.getSkuCode());
+        return new Brand(this.validate(brandDTO.getName(), "Nome"), this.validate(brandDTO.getSkuCode(), "Código SKU"));
     }
 
     @Override
