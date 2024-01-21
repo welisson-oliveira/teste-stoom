@@ -10,7 +10,15 @@ services:
       POSTGRES_USER: stoom-store
       POSTGRES_PASSWORD: stoom-store
       POSTGRES_DB: store
-
+  stoom-store:
+    container_name: stoom-store
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - stoom-store-network
 networks:
   stoom-store-network:
     name: stoom-store-network
