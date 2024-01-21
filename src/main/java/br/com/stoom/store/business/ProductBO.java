@@ -1,6 +1,7 @@
 package br.com.stoom.store.business;
 
 import br.com.stoom.store.business.interfaces.IProductBO;
+import br.com.stoom.store.exceptions.FileException;
 import br.com.stoom.store.exceptions.ResourceNotFoundException;
 import br.com.stoom.store.model.Image;
 import br.com.stoom.store.model.Product;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +75,13 @@ public class ProductBO implements IProductBO {
         final Product product = this.getProduct(id);
         final List<Image> images = new ArrayList<>();
 
-        files.forEach(file -> images.add(new Image(null, this.imageManager.upload(this.directory, file), this.directory, id)));
+        files.forEach(file -> {
+            try {
+                images.add(new Image(null, this.imageManager.upload(this.directory, file), this.directory, id));
+            } catch (final IOException e) {
+                throw new FileException("Erro ao tentar fazer upload da imagem " + e.getMessage());
+            }
+        });
         product.addImage(images);
         this.productRepository.save(product);
     }

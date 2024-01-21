@@ -15,19 +15,14 @@ import java.util.UUID;
 @Component
 public class ImageManager {
 
-    public String upload(final String directory, final MultipartFile file) {
+    public String upload(final String directory, final MultipartFile file) throws IOException {
         final byte[] bytes;
-        try {
-            bytes = file.getBytes();
+        bytes = file.getBytes();
 
-            final String imageName = UUID.randomUUID() + file.getOriginalFilename();
-            final Path pathDir = Paths.get(directory + File.separator + imageName);
-            Files.write(pathDir, bytes);
-            return imageName;
-
-        } catch (final IOException e) {
-            throw new FileException(e.getMessage());
-        }
+        final String imageName = UUID.randomUUID() + file.getOriginalFilename();
+        final Path pathDir = Paths.get(directory + File.separator + imageName);
+        Files.write(pathDir, bytes);
+        return imageName;
     }
 
     public byte[] read(final Image image) throws IOException {

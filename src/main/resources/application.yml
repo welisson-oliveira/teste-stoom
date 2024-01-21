@@ -2,8 +2,10 @@ server:
   servlet:
     context-path: /api
 spring:
+  profiles:
+    active: dev
   datasource:
-    url: jdbc:postgresql://postgres:5432/store
+    url: jdbc:postgresql://localhost:5432/store
     username: stoom-store
     password: stoom-store
 
@@ -15,3 +17,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 file:
   dir: files
+
+---
+spring:
+  profiles: docker
+  datasource:
+    url: jdbc:postgresql://postgres:5432/store
