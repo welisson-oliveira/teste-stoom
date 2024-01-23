@@ -22,7 +22,7 @@ class CategoryControllerTest extends AbstractTestConfig {
 
     @Test
     @Sql("classpath:db/category/init-values.sql")
-    void shouldGetAllInactiveBrands() throws Exception {
+    void shouldGetAllInactiveCategories() throws Exception {
         this.mockMvc.perform(get("/categories/inactivated")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content.size()", CoreMatchers.equalTo(1)))
